@@ -2,10 +2,26 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-  // const user = await prisma.user.create({ data: { name: "Arman"} });
-  const users = await prisma.user.findMany();
+  // const users = await prisma.user.findMany();
+  await prisma.user.deleteMany();
 
-  console.log(users);
+  const user = await prisma.user.create({
+    data: {
+      name: "Arman",
+      email: "armandobelara@gmail.com",
+      age: 27,
+      userPreference: {
+        create: {
+          emailUpdates: true,
+        }
+      }
+    },
+    include: {
+      userPreference: true,
+    }
+  });
+
+  console.log(user);
 }
 
 main()
