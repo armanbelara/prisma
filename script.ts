@@ -2,9 +2,10 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-  // const users = await prisma.user.findMany();
-  await prisma.user.deleteMany();
+  // await prisma.user.deleteMany();
 
+  /**
+   * Create Operations
   await prisma.user.createMany({
     data: [{
       name: "John",
@@ -24,8 +25,10 @@ async function main() {
       age: 33,
     }]
   });
+  */
 
-  /* Read Operations
+  /**
+   * Read Operations
   const user = await prisma.user.findUnique({
     where: {
       email: "armandobelara@gmail.com"
@@ -143,7 +146,77 @@ async function main() {
   });
   */
 
-  // console.log(users);
+  /**
+   * Update Operations
+  
+  const user = await prisma.user.update({
+    data: {
+      email: "johndoe3@test.com"
+    },
+    where: {
+      email: "johndoe@test.com"
+    }
+  });
+
+  const user = await prisma.user.updateMany({
+    data: {
+      name: "Juan"
+    },
+    where: {
+      name: "John"
+    }
+  });
+
+  const user = await prisma.user.update({
+    data: {
+      age: {
+        increment: 1  //increment, decrement, multiple, divide
+      }
+    },
+    where: {
+      email: "marc@test.com"
+    }
+  });
+
+  const user = await prisma.user.update({
+    data: {
+      userPreference: {
+        create: {   // create, delete, update, upsert
+          emailUpdates: true
+        }
+      }
+    },
+    where: {
+      email: "marc@test.com"
+    }
+  });
+
+  const user = await prisma.user.update({
+    data: {
+      userPreference: {
+        connect: {    // connect, disconnect
+          id: "49214190-7d98-4e44-ba11-9d3481dc3408"
+        }
+      }
+    },
+    where: {
+      email: "marc@test.com"
+    }
+  });
+
+  const user = await prisma.user.update({
+    data: {
+      userPreference: {
+        disconnect: true
+      }
+    },
+    where: {
+      email: "marc@test.com"
+    }
+  });
+  */
+ 
+  // console.log(user);
 }
 
 main()
